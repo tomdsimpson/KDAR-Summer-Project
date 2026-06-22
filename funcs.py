@@ -32,9 +32,9 @@ class Neutrinos_dk2nu():
             nimpwt    = tree["decay"]["decay.nimpwt"].array()
             self.tot_wgts = nimpwt * nuray_wgt / (DET_A * self.pot)
 
-            self.px = tree["nuray"]["nuray.px"].array()[det_i]
-            self.py = tree["nuray"]["nuray.py"].array()[det_i]
-            self.pz = tree["nuray"]["nuray.pz"].array()[det_i]
+            self.px = tree["nuray"]["nuray.px"].array()[:,det_i]
+            self.py = tree["nuray"]["nuray.py"].array()[:,det_i]
+            self.pz = tree["nuray"]["nuray.pz"].array()[:,det_i]
 
             self.decay_x = tree["decay"]["decay.vx"].array()
             self.decay_y = tree["decay"]["decay.vy"].array()
@@ -117,6 +117,7 @@ class Neutrinos_dk2nu():
             mask = e_mask & f_mask & p_mask
             if extra_mask is not None:
                 mask = mask & extra_mask
+
 
             values, edges = np.histogram(self.energies[mask], bins=self.bins, weights=self.tot_wgts[mask])
             bin_centres = (edges[1:] + edges[:-1]) / 2
