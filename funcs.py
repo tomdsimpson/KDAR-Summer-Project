@@ -2,6 +2,8 @@ import numpy as np
 import uproot
 import particle
 import matplotlib.pyplot as plt
+import matplotlib.axes as maxes
+
 
 DET_A = 4*np.pi*1e4 #Detector area
 
@@ -129,7 +131,8 @@ class Neutrinos_dk2nu():
 
         return events
     
-    
+
+
 
 if __name__ == "__main__":
 
