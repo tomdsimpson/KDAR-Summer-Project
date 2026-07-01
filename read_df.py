@@ -25,20 +25,19 @@ def load_mcnu_data(filepath, energy_max, n_chunks = 35):
     hdr_chunks  = []
     mcnu_chunks = []
     hdr_cols = ['pot']
-    mcnu_cols = ['E', 'pdg', 'parent_pdg', 'mu']
 
     with pd.HDFStore(filepath, 'r') as store:
 
-        # Browse evt structure
-        print(store['evt_0'].columns)
+        print(store["opflash_1"].columns)
 
+        # Browse evt structure
         for i in range(n_chunks):
             print(f'  Chunk {i}...', flush=True)
             hdr_chunks.append(store[f'hdr_{i}'][hdr_cols].copy())
-            mcnu_chunks.append(store[f'mcnu_{i}'][mcnu_cols].copy())
+            mcnu_chunks.append(store[f'mcnu_{i}'].copy())
 
-    hdr  = pd.concat(hdr_chunks,  ignore_index=True)
-    mcnu = pd.concat(mcnu_chunks, ignore_index=True)
+    hdr  = pd.concat(hdr_chunks)
+    mcnu = pd.concat(mcnu_chunks)
 
     pot_mc_total = hdr['pot'][hdr['pot'] > 0].sum()
 
@@ -50,8 +49,6 @@ def load_mcnu_data(filepath, energy_max, n_chunks = 35):
 
     # --- Energy Cut & Binning --- #
     mcnu_cut = mcnu[mcnu['E'] < energy_max].copy()
-    mcnu_cut = mcnu_cut.loc[:, mcnu_cols + ['weight']]
-
     return mcnu_cut
 
 
