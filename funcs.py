@@ -99,8 +99,8 @@ class Neutrinos_dk2nu():
 
     def event_count(self, energy_range = [0,1], flavour=None, parent=None, extra_mask=None, pot=6.5e20):
         """
-        energy_range: [min, max] array of float
-        flavour: [pdg1, pdg2, ...] array of int or single int
+        energy_range: [min, max] array of float,
+        flavour: [pdg1, pdg2, ...] array of int or single int,
         parents: [pdg1, pdg2, ...] array of int or single int
         """
 
